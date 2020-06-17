@@ -3,34 +3,16 @@ import {
   StyleSheet,
   Text, View,
   FlatList,
-  ActivityIndicator,
 } from 'react-native';
 
-import * as mockData from '../../mockData.json';
-
 export default function Tweets(props) {
-  // const [isLoading, setLoading] = useState(false);
-  // const [data, setData] = useState(mockData);
-
-  // useEffect(() => {
-    // .then((response) => response.json())
-    // .then((json) => {
-    //   setData(json);
-    //   console.log(json);
-    // })
-    // .catch((error) => console.error(error))
-    // .finally(() => setLoading(false));
-  // }, []);
-
   return (
     <View style={styles.container}>
-      {props.isLoading ? <ActivityIndicator/> : (
-                <FlatList
-                  data={props.data}
-                  keyExtractor={(item, index) => index.toString() }
-                  renderItem={({item}) => renderTweet(item)}
-                />
-            )}
+      <FlatList
+        data={props.data}
+        keyExtractor={(item, index) => index.toString() }
+        renderItem={({item}) => renderTweet(item)}
+      />
     </View>
   );
 }
@@ -76,5 +58,5 @@ const styles = StyleSheet.create({
   },
   tweetText: {
     fontSize: 16,
-  }
+  },
 });

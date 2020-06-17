@@ -14,33 +14,45 @@ const twitterAccounts = {
   },
 };
 
-const AccountReducer = (state = twitterAccounts.trump, action) => {
-  console.log(`account reducer ${action.type}`);
+const initialState = {
+  user: twitterAccounts.trump,
+  isLoading: true,
+  error: false,
+};
+
+const AccountReducer = (state = initialState, action) => {
   switch (action.type) {
     case TOGGLE_ACCOUNT:
       state = toggle(state);
-      return state;
+      break;
     case DATA_FETCH_SUCCEEDED:
-      state = setTweets(state, action.payload.statuses);
-    default:
-      return state;
+      state = setTweets(state, action.payload);
+      break;
   }
+  return state;
 };
 
-function toggle(account) {
-  if (account.title === twitterAccounts.trump.title) {
-    return twitterAccounts.hillary;
+function toggle(state) {
+  if (state.user.title === twitterAccounts.trump.title) {
+    state.user = twitterAccounts.hillary;
+  } else {
+    state.user = twitterAccounts.trump;
   }
-  return twitterAccounts.trump;
+  return {
+    isLoading: false,
+    error: false,
+    user: state.user,
+  };
 }
 
-function setTweets(account, tweets) {
-  if (account.title === twitterAccounts.trump.title) {
-    twitterAccounts.trump.data = tweets;
-    return twitterAccounts.trump;
-  }
-  twitterAccounts.hillary.data = tweets;
-  return twitterAccounts.hillary;
+function setTweets(state, tweets) {
+  twitterAccounts.trump.data = tweets.trump.statuses;
+  twitterAccounts.hillary.data = tweets.hillary.statuses;
+  return {
+    isLoading: false,
+    error: false,
+    user: state.user,
+  };
 }
 
 export default AccountReducer;
