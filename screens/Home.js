@@ -3,11 +3,11 @@ import {StyleSheet, Text, View, Button} from 'react-native';
 import Tweets from '../components/tweets';
 
 export default function Home(props) {
-  console.log('same', props);
-
+  console.log(`render HOME size: ${props.account.data.length}`);
   return (
     <View style={styles.container}>
-      <Tweets account={props.account} />
+      <Text style={styles.title}>{props.account.title}</Text>
+      <Tweets data={props.account.data}/>
       <Button
         onPress={() => props.toggleAccount(props.account)}
         title="Switch accounts"/>
@@ -18,6 +18,11 @@ export default function Home(props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingTop: 26,
     backgroundColor: '#fff',
+  },
+  title: {
+    fontSize: 18,
+    alignSelf: 'center',
   },
 });

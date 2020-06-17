@@ -5,7 +5,6 @@ import {toggleAccount} from '../redux/actions';
 
 function mapStateToProps(state) {
   return {
-    tweets: state.tweets,
     account: state.account,
   };
 }

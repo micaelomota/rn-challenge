@@ -1,75 +1,80 @@
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, FlatList, ActivityIndicator } from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {
+  StyleSheet,
+  Text, View,
+  FlatList,
+  ActivityIndicator,
+} from 'react-native';
 
-const tweets = [
-    {key: 'Devin'},
-    {key: 'Dan'},
-    {key: 'Dominic'},
-    {key: 'Jackson'},
-    {key: 'James'},
-    {key: 'Joel'},
-    {key: 'John'},
-    {key: 'Jillian'},
-    {key: 'Jimmy'},
-    {key: 'Julie'},
-]
+import * as mockData from '../../mockData.json';
 
 export default function Tweets(props) {
+  // const [isLoading, setLoading] = useState(false);
+  // const [data, setData] = useState(mockData);
 
-    const [isLoading, setLoading] = useState(true);
-    const [data, setData] = useState([]);
+  // useEffect(() => {
+    // .then((response) => response.json())
+    // .then((json) => {
+    //   setData(json);
+    //   console.log(json);
+    // })
+    // .catch((error) => console.error(error))
+    // .finally(() => setLoading(false));
+  // }, []);
 
-    useEffect(() => {
-        fetch('https://reactnative.dev/movies.json')
-          .then((response) => response.json())
-          .then((json) => setData(json.movies))
-          .catch((error) => console.error(error))
-          .finally(() => setLoading(false));
-      }, []);
-
-    return (
-        <View style={styles.container}>
-            <Text style={styles.title}>{props.account.title}</Text>
-            {isLoading ? <ActivityIndicator/> : (
+  return (
+    <View style={styles.container}>
+      {props.isLoading ? <ActivityIndicator/> : (
                 <FlatList
-                    data={data}
-                    keyExtractor={({ id }, index) => id}
-                    renderItem={({item}) => renderTweet(item)}
+                  data={props.data}
+                  keyExtractor={(item, index) => index.toString() }
+                  renderItem={({item}) => renderTweet(item)}
                 />
             )}
-        </View>
-    )
+    </View>
+  );
 }
 
 function renderTweet(item) {
-    return (
-        <Text style={styles.item}>{item.title}, {item.releaseYear}</Text>
-    )
+  return (
+    <View style={styles.tweetContainer}>
+      {/* <Text style={styles.item}>{item.user.name}</Text> */}
+      <Text style={styles.tweetText}>{item.text}</Text>
+      <Text style={styles.tweetDate}>{item.created_at}, {item.user.location}</Text>
+    </View>
+  );
 }
 
-function getMoviesFromApi() {
-    return fetch('https://reactnative.dev/movies.json')
-      .then((response) => response.json())
-      .then((json) => {
-        return json.movies;
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }
-
 const styles = StyleSheet.create({
-    title: { 
-        justifyContent: 'center',
-        alignContent: 'center'
-    },
-    container: {
-     flex: 1,
-     paddingTop: 22,
-    },
-    item: {
-      padding: 8,
-      fontSize: 18,
-      height: 30,
-    },
-  })
+  title: {
+    justifyContent: 'center',
+    alignContent: 'center',
+  },
+  container: {
+    flex: 1,
+  },
+  item: {
+    // flex: 1,
+    // padding: 8,
+    // fontSize: 18,
+    // height: 30,
+  },
+  tweetContainer: {
+    paddingLeft: 16,
+    paddingRight: 16,
+    paddingTop: 12,
+    flexDirection: 'column',
+    // paddingLeft: 35,
+    // paddingBottom: 5,
+    // flexDirection: "row",
+    // alignItems: "center",
+    // justifyContent: "flex-start",
+  },
+  tweetDate: {
+    marginTop: 3,
+    fontSize: 10,
+  },
+  tweetText: {
+    fontSize: 16,
+  }
+});
