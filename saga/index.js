@@ -14,10 +14,13 @@ function* fetchData(action) {
     console.log(`realDonaldTrump: ${trumpData.statuses.length}`);
     console.log(`HillaryClinton: ${hillaryData.statuses.length}`);
 
-    yield put({type: DATA_FETCH_SUCCEEDED, payload: {
-      trump: trumpData,
-      hillary: hillaryData,
-    }});
+    yield put({
+      type: DATA_FETCH_SUCCEEDED,
+      payload: {
+        trump: trumpData,
+        hillary: hillaryData,
+      },
+    });
   } catch (e) {
     yield put({type: DATA_FETCH_FAILED, message: e.message});
   }

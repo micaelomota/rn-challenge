@@ -1,6 +1,5 @@
 import {TOGGLE_ACCOUNT, DATA_FETCH_SUCCEEDED} from '../types';
 
-
 const twitterAccounts = {
   trump: {
     title: 'Donald Trump',

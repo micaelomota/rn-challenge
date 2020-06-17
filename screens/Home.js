@@ -10,11 +10,13 @@ export default function Home(props) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{props.account.user.title}</Text>
-      {props.account.isLoading ? <ActivityIndicator/> :
-        <Tweets data={props.account.user.data}/> }
+      {props.account.isLoading ?
+        <ActivityIndicator /> :
+        <Tweets data={props.account.user.data} />
+      }
       <Button
         onPress={() => props.toggleAccount(props.account.user)}
-        title="Switch accounts"/>
+        title="Switch accounts" />
     </View>
   );
 }
@@ -22,7 +24,8 @@ export default function Home(props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 26,
+    paddingTop: 44,
+    paddingBottom: 44,
     backgroundColor: '#fff',
   },
   title: {
